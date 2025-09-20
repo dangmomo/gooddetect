@@ -1,0 +1,5 @@
+package com.example.gooddetect.config;
+
+public class WebConfig {
+    
+}
