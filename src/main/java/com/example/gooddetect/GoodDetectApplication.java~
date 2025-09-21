@@ -1,13 +1,102 @@
 package com.example.gooddetect;
 
+import com.example.gooddetect.model.Product;
+import com.example.gooddetect.model.Subscriber;
+import com.example.gooddetect.model.EmailSent;
+import com.example.gooddetect.service.ProductService;
+import com.example.gooddetect.service.SubscriberService;
+import com.example.gooddetect.service.EmailSentService;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class GoodDetectApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GoodDetectApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GoodDetectApplication.class, args);
+    }
 
+    @Bean
+    public CommandLineRunner testDatabase(
+            ProductService productService,
+            SubscriberService subscriberService,
+            EmailSentService emailSentService
+    ) {
+        return args -> {
+            System.out.println("===== START TEST DATABASE =====");
+
+            // --- Insert Product ---
+            Product p1 = new Product();
+            p1.setName("Apple iPhone 15");
+            p1.setDescription("Newest iPhone model 2025");
+            p1.setImage("iphone15.jpg");
+            productService.save(p1);
+
+            Product p2 = new Product();
+            p2.setName("Samsung Galaxy S25");
+            p2.setDescription("Flagship Samsung 2025");
+            p2.setImage("galaxys25.jpg");
+            productService.save(p2);
+
+            // --- Insert Subscriber ---
+            Subscriber s1 = new Subscriber();
+            s1.setEmail("john@example.com");
+            s1.setStatus(false);
+            s1.setTimeSent(LocalDateTime.now());
+            s1.setFlag(false);
+            subscriberService.save(s1);
+
+            Subscriber s2 = new Subscriber();
+            s2.setEmail("alice@example.com");
+            s2.setStatus(true);
+            s2.setTimeSent(LocalDateTime.now());
+            s2.setFlag(true);
+            subscriberService.save(s2);
+
+            // --- Insert EmailSent ---
+            EmailSent e1 = new EmailSent();
+            e1.setSubscriber(s1);
+            e1.setSubject("Welcome Email");
+            e1.setContent("Hello John! Welcome to our service.");
+            e1.setTimeSent(LocalDateTime.now());
+            emailSentService.save(e1);
+
+            EmailSent e2 = new EmailSent();
+            e2.setSubscriber(s2);
+            e2.setSubject("Promotion Email");
+            e2.setContent("Hello Alice! Special promotion for you.");
+            e2.setTimeSent(LocalDateTime.now());
+            emailSentService.save(e2);
+
+            // --- Select and print Products ---
+            List<Product> products = productService.findAll();
+            System.out.println("Products in DB:");
+            products.forEach(prod ->
+                    System.out.println(prod.getId() + " | " + prod.getName() + " | " + prod.getDescription())
+            );
+
+            // --- Select and print Subscribers ---
+            List<Subscriber> subscribers = subscriberService.findAll();
+            System.out.println("Subscribers in DB:");
+            subscribers.forEach(sub ->
+                    System.out.println(sub.getId() + " | " + sub.getEmail() + " | Status: " + sub.getStatus())
+            );
+
+            // --- Select and print EmailSent ---
+            List<EmailSent> emails = emailSentService.findAll();
+            System.out.println("Emails in DB:");
+            emails.forEach(email ->
+                    System.out.println(email.getId() + " | " + email.getSubject()
+                            + " | Subscriber: " + email.getSubscriber().getEmail())
+            );
+
+            System.out.println("===== END TEST DATABASE =====");
+        };
+    }
 }

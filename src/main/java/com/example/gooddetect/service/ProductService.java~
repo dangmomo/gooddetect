@@ -1,0 +1,14 @@
+package com.example.gooddetect.service;
+
+import com.example.gooddetect.model.Product;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ProductService {
+    Product save(Product p);
+    List<Product> findAll();
+    Optional<Product> findById(Integer id);
+    void deleteById(Integer id);
+}
+

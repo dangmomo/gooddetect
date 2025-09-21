@@ -1,0 +1,124 @@
+package com.example.gooddetect.repository.impl;
+
+import com.example.gooddetect.model.Product;
+import com.example.gooddetect.repository.ProductRepository;
+import jakarta.persistence.EntityManager;
+import org.hibernate.Session;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.StreamSupport;
+
+public class ProductRepositoryImpl implements ProductRepository {
+
+    private final EntityManager em;
+
+    public ProductRepositoryImpl(EntityManager em) {
+        this.em = em;
+    }
+
+    // Custom method
+    public List<Product> findAllCustom() {
+        Session session = em.unwrap(Session.class);
+        List<Product> products = session.createQuery("from Product", Product.class).getResultList();
+        session.close();
+        return products;
+    }
+
+    @Override
+    public <S extends Product> S save(S entity) {
+        Session session = em.unwrap(Session.class);
+        session.beginTransaction();
+        session.persist(entity);
+        session.getTransaction().commit();
+        session.close();
+        return entity;
+    }
+
+    @Override
+    public <S extends Product> Iterable<S> saveAll(Iterable<S> entities) {
+        Session session = em.unwrap(Session.class);
+        session.beginTransaction();
+        for (S e : entities) session.persist(e);
+        session.getTransaction().commit();
+        session.close();
+        return entities;
+    }
+
+    @Override
+    public Optional<Product> findById(Integer id) {
+        Session session = em.unwrap(Session.class);
+        Product p = session.get(Product.class, id);
+        session.close();
+        return Optional.ofNullable(p);
+    }
+
+    @Override
+    public boolean existsById(Integer id) {
+        return findById(id).isPresent();
+    }
+
+    @Override
+    public Iterable<Product> findAll() {
+        return findAllCustom();
+    }
+
+    @Override
+    public Iterable<Product> findAllById(Iterable<Integer> ids) {
+        return StreamSupport.stream(ids.spliterator(), false)
+                .map(this::findById)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .toList();
+    }
+
+    @Override
+    public long count() {
+        Session session = em.unwrap(Session.class);
+        Long count = session.createQuery("select count(p.id) from Product p", Long.class).getSingleResult();
+        session.close();
+        return count;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        findById(id).ifPresent(this::delete);
+    }
+
+    @Override
+    public void delete(Product entity) {
+        Session session = em.unwrap(Session.class);
+        session.beginTransaction();
+        session.remove(entity);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public void deleteAllById(Iterable<? extends Integer> ids) {
+        ids.forEach(this::deleteById);
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends Product> entities) {
+        entities.forEach(this::delete);
+    }
+
+    @Override
+    public void deleteAll() {
+        Session session = em.unwrap(Session.class);
+        session.beginTransaction();
+        session.createQuery("delete from Product").executeUpdate();
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    //findByName
+    public List<Product> findByName(String name) {
+        Session session = em.unwrap(Session.class);
+        List<Product> products = session.createQuery("from Product p where p.name = :name", Product.class)
+                .setParameter("name", name)
+                .getResultList();
+        session.close();
+        return products;
+    }
+}

@@ -1,0 +1,4 @@
+package com.example.gooddetect.repository;
+
+public interface EmailSentRepository {
+}
