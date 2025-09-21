@@ -26,18 +26,21 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about" th:text="#{navbar.about}">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects" th:text="#{navbar.projects}">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#signup" th:text="#{navbar.contact}">Contact</a></li>
                     </ul>
                 </div>
             </div>
 <!--            nút đổi ngôn ngữ-->
             <div class="ms-3">
-                <a class="btn btn-sm btn-outline-primary"
-                   th:href="@{/change-language(lang='en', redirect=${#httpServletRequest.requestURI})}">EN</a>
-                <a class="btn btn-sm btn-outline-primary"
-                   th:href="@{/change-language(lang='vi', redirect=${#httpServletRequest.requestURI})}">VI</a>
+<!--                <a class="btn btn-sm btn-outline-primary"-->
+<!--                   th:href="@{/change-language(lang='en', redirect=${#httpServletRequest.requestURI})}">EN</a>-->
+<!--                <a class="btn btn-sm btn-outline-primary"-->
+<!--                   th:href="@{/change-language(lang='vi', redirect=${#httpServletRequest.requestURI})}">VI</a>-->
+                <a th:href="@{${#httpServletRequest.requestURI}(lang='en')}">EN</a>
+                <a th:href="@{${#httpServletRequest.requestURI}(lang='vi')}">VI</a>
+
             </div>
 
         </nav>
