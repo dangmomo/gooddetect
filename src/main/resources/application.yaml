@@ -4,9 +4,9 @@ spring:
     name: GoodDetection
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
-    username: ${MYSQLUSER}
-    password: ${MYSQL_ROOT_PASSWORD}
+    url: jdbc:mysql://mysql.railway.internal:3306/railway?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    username: root
+    password: WdDiVzIxalNAIiJXBdLRsVDkUcHjkqMq
   jpa:
     hibernate:
       ddl-auto: update
@@ -23,4 +23,4 @@ spring:
       suffix: .html
 
 server:
-  port: ${PORT:8080}
+  port: 3306
