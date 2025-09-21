@@ -1,7 +1,13 @@
 #    password: WdDiVzIxalNAIiJXBdLRsVDkUcHjkqMq
+
 spring:
   application:
     name: GoodDetection
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://containers-us-west-123.railway.app:3306/railway?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+#    username: root
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${MYSQLHOST}:${MYSQLPORT}/${MYSQLDATABASE}?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
@@ -22,5 +28,6 @@ spring:
       prefix: classpath:/templates/
       suffix: .html
 
-server:
-  port: ${PORT:8080}
+      server:
+        port: ${PORT:8080}
+
