@@ -65,7 +65,7 @@ public class SubscribeController {
                     + "</div>";
 
             helper.setFrom("yourgmail@gmail.com");
-            helper.setTo("dang542003@gmail.com");
+            helper.setTo("ai.sgroup209@gmail.com");
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
 
