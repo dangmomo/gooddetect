@@ -38,7 +38,7 @@ public class SubscribeController {
 
                     // Header với gradient
                     + "<div style='background: linear-gradient(90deg, #007bff, #00c6ff); padding: 30px 20px; text-align:center; border-top-left-radius:8px; border-top-right-radius:8px;'>"
-                    + "<img src='http://yourdomain.com/assets/img/logo.png' alt='AI.S Logo' style='max-width:120px; height:auto; margin-bottom:10px;'/>"
+//                    + "<img src='http://yourdomain.com/assets/img/logo.png' alt='AI.S Logo' style='max-width:120px; height:auto; margin-bottom:10px;'/>"
                     + "<h2 style='color:#fff; margin:0;'>Đơn Đăng Ký Mới</h2>"
                     + "</div>"
 

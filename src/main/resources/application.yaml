@@ -1,12 +1,11 @@
-#    password: WdDiVzIxalNAIiJXBdLRsVDkUcHjkqMq
 spring:
   application:
     name: GoodDetection
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql.railway.internal:3306/railway?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/gooddetect?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
     username: root
-    password: WdDiVzIxalNAIiJXBdLRsVDkUcHjkqMq
+    password: root
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,5 +21,30 @@ spring:
       prefix: classpath:/templates/
       suffix: .html
 
-server:
-  port: 3306
+
+##    password: WdDiVzIxalNAIiJXBdLRsVDkUcHjkqMq
+#spring:
+#  application:
+#    name: GoodDetection
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://mysql.railway.internal:3306/railway?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+#    username: root
+#    password: WdDiVzIxalNAIiJXBdLRsVDkUcHjkqMq
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLDialect
+#        format_sql: true
+#        hbm2ddl:
+#          auto: update
+#  mvc:
+#    view:
+#      prefix: classpath:/templates/
+#      suffix: .html
+#
+#server:
+#  port: 3306
