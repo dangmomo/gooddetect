@@ -8,7 +8,7 @@
     <title>AI.S - Goods Detection</title>
 
     <!-- favicon -->
-    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/img/logo.png}" />
 
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -89,7 +89,7 @@
                         </p>
                     </div>
                 </div>
-                <img class="img-fluid" src="/assets/img/131.png" alt="..." />
+                <img class="img-fluid" src="/assets/img/181.png" alt="..." />
             </div>
         </section>
         <!-- Projects-->
