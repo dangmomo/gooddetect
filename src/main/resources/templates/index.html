@@ -35,6 +35,10 @@
                         <li class="nav-item"><a class="nav-link" href="#about" th:text="#{navbar.about}">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#projects" th:text="#{navbar.projects}">Projects</a></li>
                         <li class="nav-item"><a class="nav-link" href="#signup" th:text="#{navbar.contact}">Contact</a></li>
+                        <!-- Thêm mục Product -->
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/product}" th:text="#{navbar.product}">Product</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -216,6 +220,15 @@
                                     th:text="#{signup.button}">Notify Me!</button>
                                 </div>
                             </div>
+                            <!-- Đây chèn loading message -->
+                            <div class="d-none" id="submitLoading">
+                                <div class="text-center mb-3 mt-2 text-white d-flex align-items-center justify-content-center">
+                                    <div class="spinner-border spinner-border-sm me-2 text-white" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <span th:text="#{signup.loading}">Đang xử lý...</span>
+                                </div>
+                            </div>
 
                             <div class="invalid-feedback mt-2 d-none" id="invalidEmail"
                                  th:text="#{signup.invalidEmail}">Email không hợp lệ.</div>
@@ -287,8 +300,11 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5"
-                th:text="#{footer.text}">Copyright &copy; Your Website 2023</div></footer>
+        <footer class="footer bg-black small text-center text-white-50">
+            <div class="container px-4 px-lg-5" th:utext="#{footer.text}"></div>
+        </footer>
+
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
@@ -306,6 +322,8 @@
             const invalidMsg = document.getElementById('invalidEmail');
             const successMsg = document.getElementById('submitSuccessMessage');
             const errorMsg = document.getElementById('submitErrorMessage');
+            const loadingMsg = document.getElementById('submitLoading'); // Thêm dòng này
+
 
             form.addEventListener('submit', function (event) {
                 event.preventDefault();
@@ -313,10 +331,14 @@
                 successMsg.classList.add('d-none');
                 errorMsg.classList.add('d-none');
 
+                // Hiện loading
+                loadingMsg.classList.remove('d-none');
+
                 const email = emailInput.value.trim();
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
                 if (!emailRegex.test(email)) {
+                    loadingMsg.classList.add('d-none'); // ẩn loading nếu email sai
                     invalidMsg.classList.remove('d-none');
                     return;
                 }
@@ -329,6 +351,7 @@
                 })
                     .then(res => res.text())
                     .then(text => {
+                        loadingMsg.classList.add('d-none'); // ẩn loading khi có kết quả
                         if (text.includes('thành công')) {
                             successMsg.classList.remove('d-none');
                             emailInput.value = "";
@@ -337,6 +360,7 @@
                         }
                     })
                     .catch(err => {
+                        loadingMsg.classList.add('d-none'); // ẩn loading nếu lỗi
                         errorMsg.classList.remove('d-none');
                         console.log(err);
                     });

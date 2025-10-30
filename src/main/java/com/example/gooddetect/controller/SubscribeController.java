@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import org.springframework.core.io.ClassPathResource;
 
 @RestController
 public class SubscribeController {
@@ -34,11 +35,14 @@ public class SubscribeController {
             String subject = "🔔 Thông báo: Có người đăng ký mới trên website AI.S";
             String formattedTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy"));
 
+            // Tải logo từ resources
+//            ClassPathResource logo = new ClassPathResource("static/assets/img/logo.png");
+
             String htmlContent = "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 0; background-color: #f5f5f5;\">"
 
-                    // Header với gradient
+                    // Header với gradient và logo
                     + "<div style='background: linear-gradient(90deg, #007bff, #00c6ff); padding: 30px 20px; text-align:center; border-top-left-radius:8px; border-top-right-radius:8px;'>"
-//                    + "<img src='http://yourdomain.com/assets/img/logo.png' alt='AI.S Logo' style='max-width:120px; height:auto; margin-bottom:10px;'/>"
+//                    + "<img src='cid:logoImage' alt='AI.S Logo' style='max-width:120px; height:auto; margin-bottom:10px;'/>"
                     + "<h2 style='color:#fff; margin:0;'>Đơn Đăng Ký Mới</h2>"
                     + "</div>"
 
@@ -54,20 +58,18 @@ public class SubscribeController {
                     + "<li style='margin-bottom:10px;'>⏰ <strong>Thời gian:</strong> <span>" + formattedTime + "</span></li>"
                     + "</ul>"
 
-//                    // Nút xem chi tiết (nếu có link)
-//                    + "<div style='text-align:center; margin-top:20px;'>"
-//                    + "<a href='http://yourdomain.com/admin/registrations' style='background-color:#007bff; color:#fff; text-decoration:none; padding:12px 25px; border-radius:5px; display:inline-block; font-weight:bold;'>Xem chi tiết</a>"
-//                    + "</div>"
-
                     // Footer
                     + "<p style='text-align:center; margin-top:25px; font-size:13px; color:#888;'>Đây là email tự động. Vui lòng không trả lời.</p>"
                     + "</div>"
                     + "</div>";
 
-            helper.setFrom("yourgmail@gmail.com");
+            helper.setFrom("ai.sgroup209@gmail.com", "Công Ty AI.S"); // tên công ty hiển thị
             helper.setTo("ai.sgroup209@gmail.com");
             helper.setSubject(subject);
             helper.setText(htmlContent, true);
+
+//            // Nhúng logo
+//            helper.addInline("logoImage", logo);
 
             mailSender.send(mimeMessage);
 
