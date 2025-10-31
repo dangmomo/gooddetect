@@ -1,0 +1,36 @@
+/*!
+* Start Bootstrap - Grayscale v7.0.6
+*/
+
+// Khi DOM load xong
+window.addEventListener('DOMContentLoaded', () => {
+    const navbar = document.getElementById('mainNav');
+
+    // Hàm shrink navbar
+    const navbarShrink = () => {
+        if (!navbar) return;
+        if (window.scrollY > 100) {
+            navbar.classList.add('navbar-shrink');
+        } else {
+            navbar.classList.remove('navbar-shrink');
+        }
+    };
+
+    // Gọi khi load page
+    navbarShrink();
+
+    // Gọi khi scroll
+    document.addEventListener('scroll', navbarShrink);
+
+    // Collapse responsive navbar khi click vào nav-link
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navLinks = document.querySelectorAll('#navbarResponsive .nav-link');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.getComputedStyle(navbarToggler).display !== 'none') {
+                navbarToggler.click();
+            }
+        });
+    });
+});

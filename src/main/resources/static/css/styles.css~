@@ -11156,7 +11156,7 @@ body {
 
 .signup-section {
   padding: 10rem 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("../assets/img/FC.ppng");
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.5) 75%, #000 100%), url("../assets/img/FC.png");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
@@ -11213,4 +11213,26 @@ body {
 
 .footer {
   padding: 5rem 0;
+}
+
+
+/* Khi navbar đang được mở (collapse hiển thị) trên màn hình nhỏ */
+@media (max-width: 991.98px) {
+  .navbar.navbar-light.fixed-top.show-menu {
+    background-color: #fff !important;
+    transition: background-color 0.3s ease;
+  }
+
+  .navbar.navbar-light.fixed-top.show-menu .navbar-brand,
+  .navbar.navbar-light.fixed-top.show-menu .nav-link {
+    color: #000 !important;
+  }
+
+  .navbar.navbar-light.fixed-top.show-menu .navbar-toggler {
+    border-color: #000;
+  }
+
+  .navbar.navbar-light.fixed-top.show-menu .navbar-toggler i {
+    color: #000;
+  }
 }
